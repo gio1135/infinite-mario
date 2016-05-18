@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- Start favicon-->
+    <link rel='apple-touch-icon' sizes='57x57' href='favicon/apple-touch-icon-57x57.png'>
+    <link rel='apple-touch-icon' sizes='60x60' href='favicon/apple-touch-icon-60x60.png'>
+    <link rel='apple-touch-icon' sizes='72x72' href='favicon/apple-touch-icon-72x72.png'>
+    <link rel='apple-touch-icon' sizes='76x76' href='favicon/apple-touch-icon-76x76.png'>
+    <link rel='apple-touch-icon' sizes='114x114' href='favicon/apple-touch-icon-114x114.png'>
+    <link rel='apple-touch-icon' sizes='120x120' href='favicon/apple-touch-icon-120x120.png'>
+    <link rel='apple-touch-icon' sizes='144x144' href='favicon/apple-touch-icon-144x144.png'>
+    <link rel='apple-touch-icon' sizes='152x152' href='favicon/apple-touch-icon-152x152.png'>
+    <link rel='apple-touch-icon' sizes='180x180' href='favicon/apple-touch-icon-180x180.png'>
+    <link rel='icon' type='image/png' href='favicon/favicon-32x32.png' sizes='32x32'>
+    <link rel='icon' type='image/png' href='favicon/android-chrome-192x192.png' sizes='192x192'>
+    <link rel='icon' type='image/png' href='favicon/favicon-96x96.png' sizes='96x96'>
+    <link rel='icon' type='image/png' href='favicon/favicon-16x16.png' sizes='16x16'>
+    <link rel='manifest' href='favicon/manifest.json'>
+    <link rel='shortcut icon' href='favicon/favicon.ico'>
+    <meta name='msapplication-TileColor' content='#2d89ef'>
+    <meta name='msapplication-TileImage' content='favicon/mstile-144x144.png'>
+    <meta name='msapplication-config' content='favicon/browserconfig.xml'>
+    <meta name='theme-color' content='#ffffff'>
+    <!-- End favicon -->
+    <title>Infinite Mario</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script type='text/javascript'>
+      var gameTitle = 'infinite-mario';
+    </script>
+    <script type='text/javascript'>var axel = Math.random() + ''; var c = axel * 1000000000000000000; document.write('<scr'+'ipt type='text/javascript' src='/analytics.js?c=' +c+''></scr' + 'ipt>');</script>
+    <style>
+      html, body, #canvas, #fullscreen-wrapper {
+        height: 100%;
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+        position: relative;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      body {
+        background: #000;
+        color: #fff;
+        -ms-touch-action: none;
+      }
+      canvas {
+        touch-action-delay: none;
+        touch-action: none;
+        -ms-touch-action: none;
+      }
+      #cavas {
+        z-index: 1;
+      }
+      .arrows, .buttons {
+        z-index: 2;
+        position: absolute;
+        bottom: 0;
+      }
+      .arrows {
+        left: 20px;
+        bottom: 20px;
+        width: 100px;
+        height: 100px;
+        background: url('NES_Move.png') no-repeat center center;
+        opacity: 0.4;
+      }
+      .buttons {
+        right: 0;
+      }
+      .arrows div {
+        width: 80px; 
+        height: 80px;
+        left: -30px;
+        bottom: -30px;
+        position: absolute;
+        z-index: 2;
+        background: rgba(255,255,255,0);
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+      .arrows div.down {
+        left: 10px;
+        bottom: -45px;
+      }
+      .arrows div.right {
+        left: 65px;
+        bottom: 10px;
+        z-index: 3;
+      }
+      .arrows div.left {
+        left: -45px;
+        bottom: 10px;
+      }
+      .arrows div.up {
+        bottom: 65px;
+        left: 10px;
+      }
+      .buttons div {
+        height: 100px;
+        width: 100px;
+        overflow: hidden;
+        position: absolute;
+        bottom: 10px;
+        opacity: 0.4;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+      .buttons div.a {
+        right: 20px;
+        background: url('NES_A.png') center center no-repeat;;
+  
+      }
+      .buttons div.b {
+        right: 120px;
+        background: url('NES_B.png') center center no-repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='fullscreen-wrapper'>
+      <canvas id='canvas' width='640' height='480'>
+         <p align='center'><font face='Arial, Helvetica, sans-serif' size='3' color='#FFFFFF'>Sorry, this game will not work because your web browser does not support the canvas element.</font></p>
+      </canvas>
+      <div class='mobile-controls'>
+        <div class='arrows'>
+          <div class='up'>
+          </div>
+          <div class='down'>
+          </div>
+          <div class='left'>
+          </div>
+          <div class='right'>
+          </div>
+        </div>
+        <div class='buttons'>
+          <div class='a'></div>
+          <div class='b'></div>
+        </div>
+      </div>`
+    </div>
+    <!-- Enjine Includes -->
+    <script src='Enjine/core.js'></script>
+    <script src='Enjine/gameCanvas.js'></script>
+    <script src='Enjine/keyboardInput.js'></script>
+    <script src='Enjine/resources.js'></script>
+    <script src='Enjine/drawable.js'></script>
+    <script src='Enjine/state.js'></script>
+    <script src='Enjine/gameTimer.js'></script>
+    <script src='Enjine/camera.js'></script>
+    <script src='Enjine/drawableManager.js'></script>
+    <script src='Enjine/sprite.js'></script>
+    <script src='Enjine/spriteFont.js'></script>
+    <script src='Enjine/frameSprite.js'></script>
+    <script src='Enjine/animatedSprite.js'></script>
+    <script src='Enjine/collideable.js'></script>
+    <script src='Enjine/application.js'></script>
+     <!-- hacked in includes -->
+    <script src='code/hackedonscreen.js'></script>
+
+    <!-- Actual game code -->
+    <script src='code/setup.js'></script>
+    <script src='code/spriteCuts.js'></script>
+    <script src='code/level.js'></script>
+    <script src='code/backgroundGenerator.js'></script>
+    <script src='code/backgroundRenderer.js'></script>
+    <script src='code/improvedNoise.js'></script>
+    <script src='code/notchSprite.js'></script>
+    <script src='code/character.js'></script>
+    <script src='code/levelRenderer.js'></script>
+    <script src='code/levelGenerator.js'></script>
+    <script src='code/spriteTemplate.js'></script>
+    <script src='code/enemy.js'></script>
+    <script src='code/fireball.js'></script>
+    <script src='code/sparkle.js'></script>
+    <script src='code/coinAnim.js'></script>
+    <script src='code/mushroom.js'></script>
+    <script src='code/particle.js'></script>
+    <script src='code/fireFlower.js'></script>
+    <script src='code/bulletBill.js'></script>
+    <script src='code/flowerEnemy.js'></script>
+    <script src='code/shell.js'></script>
+
+    <script src='code/titleState.js'></script>
+    <script src='code/loadingState.js'></script>
+    <script src='code/loseState.js'></script>
+    <script src='code/winState.js'></script>
+    <script src='code/mapState.js'></script>
+    <script src='code/levelState.js'></script>
+
+    <script src='code/music.js'></script>
+    <script>$(function() { 
+      new Enjine.Application().Initialize(new Mario.LoadingState(), 320, 240);
+      });
+    </script>
+  </body>
+</html>
